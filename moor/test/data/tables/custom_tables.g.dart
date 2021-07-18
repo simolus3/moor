@@ -773,6 +773,7 @@ class WithConstraints extends Table
 
   @override
   List<String> get customConstraints =>
+      super.customConstraints +
       const ['FOREIGN KEY (a, b) REFERENCES with_defaults (a, b)'];
   @override
   bool get dontWriteConstraints => true;
@@ -1038,7 +1039,8 @@ class Mytable extends Table with TableInfo<Mytable, MytableData> {
   }
 
   @override
-  List<String> get customConstraints => const ['PRIMARY KEY (someid DESC)'];
+  List<String> get customConstraints =>
+      super.customConstraints + const ['PRIMARY KEY (someid DESC)'];
   @override
   bool get dontWriteConstraints => true;
 }

@@ -27,6 +27,9 @@ typedef BlobColumn = Column<Uint8List?>;
 /// A column that stores floating point numeric values.
 typedef RealColumn = Column<double?>;
 
+///
+enum KeyAction { noAction, cascade, restrict, setNull, setDefault }
+
 /// A column builder is used to specify which columns should appear in a table.
 /// All of the methods defined in this class and its subclasses are not meant to
 /// be called at runtime. Instead, moor_generator will take a look at your
@@ -166,6 +169,15 @@ extension BuildColumn<T> on ColumnBuilder<T> {
   /// The generated row class will then use a `MyFancyClass` instead of a
   /// `String`, which would usually be used for [Table.text] columns.
   ColumnBuilder<T> map<Dart>(TypeConverter<Dart, T> converter) =>
+      _isGenerated();
+
+  ///
+  Builder references(
+    Type table,
+    Symbol column, {
+    KeyAction onUpdate = KeyAction.noAction,
+    KeyAction onDelete = KeyAction.noAction,
+  }) =>
       _isGenerated();
 
   /// Turns this column builder into a column. This method won't actually be
